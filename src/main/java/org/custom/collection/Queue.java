@@ -1,5 +1,7 @@
 package org.custom.collection;
 
+import org.custom.collection.exceptions.QueueOutOfBoundsException;
+
 /**
  * Queue interface contract for implementation
  *
@@ -12,7 +14,7 @@ public interface Queue<T>
      *
      * @param element
      */
-    void enqueue(T element);
+    void enqueue(T element) throws QueueOutOfBoundsException;
 
     /**
      * Remove and returns the first element from the queue
