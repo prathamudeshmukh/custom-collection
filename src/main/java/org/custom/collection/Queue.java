@@ -19,7 +19,7 @@ public interface Queue<T>
     /**
      * Remove and returns the first element from the queue
      */
-    T dequeue();
+    T dequeue() throws QueueOutOfBoundsException;
 
     /**
      * Return the first element in queue

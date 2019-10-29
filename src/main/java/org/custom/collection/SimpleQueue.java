@@ -19,10 +19,14 @@ public class SimpleQueue<T> implements Queue<T>
         tail += 1;
     }
 
-    public T dequeue()
+    public T dequeue() throws QueueOutOfBoundsException
     {
+        if (tail == 0) {
+            throw new QueueOutOfBoundsException("No more elements to dequeue");
+        }
         T returnElement = (T) queue[0];
         System.arraycopy(queue, 1, queue, 0, queue.length - 1);
+        tail --;
         return returnElement;
     }
 
@@ -33,7 +37,7 @@ public class SimpleQueue<T> implements Queue<T>
 
     public int size()
     {
-        return 0;
+        return tail;
     }
 
     public boolean isEmpty()

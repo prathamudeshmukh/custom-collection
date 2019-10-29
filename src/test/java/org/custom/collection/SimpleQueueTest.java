@@ -50,4 +50,35 @@ public class SimpleQueueTest
             queue.enqueue(5);
         });
     }
+
+    @DisplayName("Test dequeue() throws exception if the queue is empty")
+    @Test
+    public void dequeue_throwsException_IfQueueEmpty() throws QueueOutOfBoundsException
+    {
+        SimpleQueue<Integer> queue = new SimpleQueue<Integer>(1);
+        queue.enqueue(1);
+        queue.dequeue();
+        assertThrows(QueueOutOfBoundsException.class, () -> {
+            queue.dequeue();
+        });
+    }
+
+    @DisplayName("Test size() returns the total number of elements in the queue")
+    @Test
+    public void size_totalNumberOfElements() throws QueueOutOfBoundsException
+    {
+        SimpleQueue<Integer> queue = new SimpleQueue<Integer>(10);
+        queue.enqueue(1);
+        queue.enqueue(3);
+        queue.enqueue(5);
+        assertEquals(3, queue.size(), "Total number of elements does not match");
+    }
+
+    @DisplayName("Test size() returns 0 if no elements found")
+    @Test
+    public void size_zero_noElementsFound() throws QueueOutOfBoundsException
+    {
+        SimpleQueue<Integer> queue = new SimpleQueue<Integer>(10);
+        assertEquals(0, queue.size(), "Total number of elements does not match");
+    }
 }
