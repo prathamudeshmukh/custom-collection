@@ -1,5 +1,6 @@
 package org.custom.collection;
 
+import org.custom.collection.exceptions.ElementNotFoundException;
 import org.custom.collection.exceptions.QueueOutOfBoundsException;
 
 public class SimpleQueue<T> implements Queue<T>
@@ -30,8 +31,11 @@ public class SimpleQueue<T> implements Queue<T>
         return returnElement;
     }
 
-    public T peek()
+    public T peek() throws ElementNotFoundException
     {
+        if (isEmpty()) {
+            throw new ElementNotFoundException("No element found");
+        }
         return (T) queue[0];
     }
 
@@ -42,6 +46,6 @@ public class SimpleQueue<T> implements Queue<T>
 
     public boolean isEmpty()
     {
-        return false;
+        return tail == 0;
     }
 }

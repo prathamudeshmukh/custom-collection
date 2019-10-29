@@ -1,5 +1,6 @@
 package org.custom.collection;
 
+import org.custom.collection.exceptions.ElementNotFoundException;
 import org.custom.collection.exceptions.QueueOutOfBoundsException;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -10,7 +11,7 @@ public class SimpleQueueTest
 {
     @DisplayName("Test enqueue() adds element to end of the queue")
     @Test
-    public void enqueue_addsElementToEndOfQueue() throws QueueOutOfBoundsException
+    public void enqueue_addsElementToEndOfQueue() throws QueueOutOfBoundsException, ElementNotFoundException
     {
         SimpleQueue queue = new SimpleQueue(4);
         queue.enqueue(1);
@@ -19,7 +20,7 @@ public class SimpleQueueTest
 
     @DisplayName("Test peek() returns element at first in the queue")
     @Test
-    public void peek_returnsElementAtFirst() throws QueueOutOfBoundsException
+    public void peek_returnsElementAtFirst() throws QueueOutOfBoundsException, ElementNotFoundException
     {
         SimpleQueue queue = new SimpleQueue(4);
         queue.enqueue(5);
@@ -80,5 +81,32 @@ public class SimpleQueueTest
     {
         SimpleQueue<Integer> queue = new SimpleQueue<Integer>(10);
         assertEquals(0, queue.size(), "Total number of elements does not match");
+    }
+
+    @DisplayName("Test isEmpty() returns true if no elements found")
+    @Test
+    public void isEmpty_true_noElementsFound() throws QueueOutOfBoundsException
+    {
+        SimpleQueue<Integer> queue = new SimpleQueue<Integer>(10);
+        assertTrue(queue.isEmpty(), "Queue not empty");
+    }
+
+    @DisplayName("Test isEmpty() returns false if some elements are added")
+    @Test
+    public void isEmpty_false_ElementsAdded() throws QueueOutOfBoundsException
+    {
+        SimpleQueue<Integer> queue = new SimpleQueue<Integer>(10);
+        queue.enqueue(4);
+        assertFalse(queue.isEmpty(), "Queue empty");
+    }
+
+    @DisplayName("Test peek() throws ElementNotFoundException when queue is empty")
+    @Test
+    public void peek_throwsException_queueEmpty() throws QueueOutOfBoundsException
+    {
+        SimpleQueue queue = new SimpleQueue(4);
+        assertThrows(ElementNotFoundException.class, () -> {
+           queue.peek();
+        });
     }
 }

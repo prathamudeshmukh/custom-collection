@@ -1,5 +1,6 @@
 package org.custom.collection;
 
+import org.custom.collection.exceptions.ElementNotFoundException;
 import org.custom.collection.exceptions.QueueOutOfBoundsException;
 
 /**
@@ -26,7 +27,7 @@ public interface Queue<T>
      *
      * @return T element
      */
-    T peek();
+    T peek() throws ElementNotFoundException;
 
     /**
      * Get the size of the queue
